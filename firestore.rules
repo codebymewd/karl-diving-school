@@ -1,9 +1,0 @@
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{db}/documents {
-    // Students can read only their own records. All writes go through the Worker (service account).
-    match /users/{uid}    { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
-    match /students/{uid} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
-    match /{path=**}      { allow read, write: if false; }
-  }
-}
